@@ -19,3 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', 'App\Http\Controllers\UserAction');
+
+Route::group(['middleware' => 'api'], function ($router){
+    Route::post('/users/login', 'App\Http\Controllers\User\LoginAction');
+    Route::post('/users', 'App\Http\Controllers\User\RetrieveAction');
+});
