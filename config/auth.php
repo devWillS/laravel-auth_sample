@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'user_token',
+            'hash' => false,
+        ]
     ],
 
     /*
@@ -64,6 +69,10 @@ return [
             'driver' => 'cache_eloquent',
             'model' => App\User::class,
         ],
+
+        'user_token' => [
+            'driver' => 'user_token'
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

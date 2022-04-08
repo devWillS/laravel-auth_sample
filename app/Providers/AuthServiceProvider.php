@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use App\Foundation\Auth\ChacheUserProvider;
+use App\DataProvider\UserToken;
+use App\Foundation\Auth\CacheUserProvider;
+use App\Foundation\Auth\UserTokenProvider;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,14 @@ class AuthServiceProvider extends ServiceProvider
                     $app->make('hash'),
                     $config['model'],
                     $app->make('cache')->driver()
+                );
+            }
+        );
+        $this->app->make('auth')->provider(
+            'user_token',
+            function (Application $app, array $config) {
+                return new UserTokenProvider(
+                    new UserToken($app->make('db'))
                 );
             }
         );
